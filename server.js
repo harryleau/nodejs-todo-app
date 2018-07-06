@@ -14,16 +14,12 @@ app.use(bodyParser.json());
 const todosRoute = require('./routes/todos');
 const usersRoute = require('./routes/users');
 
-app.get('/', (req, res) => {
-  res.send('hello');
-});
-
 // use Routes
 app.use('/todos', todosRoute);
 app.use('/users', usersRoute);
 
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
   console.log('server is up on port', port);
