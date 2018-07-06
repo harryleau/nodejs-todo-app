@@ -7,7 +7,7 @@ const router = express.Router();
 // load user model
 const { User } = require('../models/User');
 
-// @ROUTE   /users/register
+// @ROUTE   /api//users/register
 // @DESC    register user
 // @ACCESS  public
 router.post('/register', (req, res) => {
@@ -18,7 +18,7 @@ router.post('/register', (req, res) => {
     .catch(e => res.status(400).send(e));
 });
 
-// @ROUTE   /users/login
+// @ROUTE   /api/users/login
 // @DESC    login user, create token
 // @ACCESS  public
 router.post('/login', (req, res) => {
@@ -31,7 +31,7 @@ router.post('/login', (req, res) => {
     .catch(e => res.status(400).json({ 'noUser': 'No user was found' }));
 });
 
-// @ROUTE   /users/logout
+// @ROUTE   /api/users/logout
 // @DESC    logout user, remove token
 // @ACCESS  private
 router.delete('/logout', authenticate, (req, res) => {
@@ -40,7 +40,7 @@ router.delete('/logout', authenticate, (req, res) => {
     .catch(e => res.status(400).json(e));
 });
 
-// @ROUTE   /users/delete
+// @ROUTE   /api/users/delete
 // @DESC    delete user
 // @ACCESS  private
 router.delete('/', authenticate, (req, res) => {

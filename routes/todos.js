@@ -7,7 +7,7 @@ const router = express.Router();
 // load Todo model
 const { Todo } = require('../models/Todo');
 
-// @ROUTE   /todos
+// @ROUTE   /api/todos
 // @DESC    post a todo
 // @ACCESS  private
 router.post('/', authenticate, (req, res) => {
@@ -27,7 +27,7 @@ router.post('/', authenticate, (req, res) => {
     .catch(e => res.status(400).json(e));
 });
 
-// @ROUTE   /todos
+// @ROUTE   /api/todos
 // @DESC    get all todos
 // @ACCESS  private
 router.get('/', authenticate, (req, res) => {
@@ -43,7 +43,7 @@ router.get('/', authenticate, (req, res) => {
     .catch(e => res.status(400).json(e)); 
 });
 
-// @ROUTE   /todos/:id
+// @ROUTE   /api/todos/:id
 // @DESC    get todo by id
 // @ACCESS  private
 router.get('/:id', authenticate, (req, res) => {
@@ -59,7 +59,7 @@ router.get('/:id', authenticate, (req, res) => {
     .catch(e => res.status(400).json({ 'noTodo': 'No todo was found'} )); 
 });
 
-// @ROUTE   /todos/:id
+// @ROUTE   /api/todos/:id
 // @DESC    update todo by id
 // @ACCESS  private
 router.put('/:id', authenticate, (req, res) => {
@@ -82,7 +82,7 @@ router.put('/:id', authenticate, (req, res) => {
     .catch(e => res.status(400).json({ 'noTodo': 'No todo was found'} )); 
 });
 
-// @ROUTE   /todos/:id
+// @ROUTE   /api/todos/:id
 // @DESC    delete todo by id
 // @ACCESS  private
 router.delete('/:id', authenticate, (req, res) => {

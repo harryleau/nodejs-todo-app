@@ -15,8 +15,8 @@ const todosRoute = require('./routes/todos');
 const usersRoute = require('./routes/users');
 
 // use Routes
-app.use('/todos', todosRoute);
-app.use('/users', usersRoute);
+app.use('/api/todos', todosRoute);
+app.use('/api/users', usersRoute);
 
 
 const port = process.env.PORT || 5000;
