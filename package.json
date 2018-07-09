@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "dev": "concurrently --kill-others-on-fail \"npm run server-watch\" \"npm run client\"",
     "server": "node server.js",
     "server-watch": "nodemon server.js",
     "client-build": "cd client && npm run build",
@@ -20,13 +20,9 @@
     "lodash": "^4.17.10",
     "mongoose": "^5.2.1",
     "nodemon": "^1.17.5",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-router-dom": "^4.3.1",
     "validator": "^10.4.0"
   },
   "devDependencies": {
     "concurrently": "^3.6.0"
-  },
-  "proxy": "http://localhost:5000"
+  }
 }

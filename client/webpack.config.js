@@ -1,5 +1,6 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: ['babel-polyfill', './src/index.js'],
@@ -30,13 +31,21 @@ module.exports = {
   },
   mode: 'development',
   plugins: [
-    new ExtractTextPlugin('style.css')
+    new ExtractTextPlugin('style.css'),
+    new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     port: 3000,
     historyApiFallback: true,
-    publicPath: '/dist/'
+    publicPath: '/dist/',
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        secure: false
+      }
+    }
   },
   devtool: 'cheap-module-eval-source-map',
   performance: {

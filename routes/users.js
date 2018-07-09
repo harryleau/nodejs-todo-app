@@ -2,6 +2,10 @@ const express = require('express');
 const _ = require('lodash');
 const { authenticate } = require('../middleware/authenticate');
 
+// load input validation
+const validateRegisterInput = require('../validation/registerInput');
+const validateLoginInput = require('../validation/loginInput');
+
 const router = express.Router();
 
 // load user model
@@ -11,11 +15,25 @@ const { User } = require('../models/User');
 // @DESC    register user
 // @ACCESS  public
 router.post('/register', (req, res) => {
-  const body = _.pick(req.body, ['email', 'name', 'password']);
-  const user = new User(body);
+  const body = _.pick(req.body, ['email', 'name', 'password', 'password2']);
+  
+  const errors = validateRegisterInput(body);
 
-  user.save().then((user) => res.json(user))
-    .catch(e => res.status(400).send(e));
+  if(!_.isEmpty(errors)) {
+    return res.status(400).json(errors);
+  }
+
+  User.findOne({ email: body.email })
+    .then(user => {
+      if(user) {
+        return res.status(400).json({ email: 'This email has already been registered!' });
+      }
+
+      const newUser = new User(body);
+
+      return newUser.save().then((user) => res.json(user))
+        .catch(e => console.log(e));
+    })
 });
 
 // @ROUTE   /api/users/login
@@ -23,12 +41,19 @@ router.post('/register', (req, res) => {
 // @ACCESS  public
 router.post('/login', (req, res) => {
   const body = _.pick(req.body, ['email', 'password']);
+
+  const errors = validateLoginInput(body);
+
+  if(!_.isEmpty(errors)) {
+    res.status(400).json(errors);
+  }
+
   User.findByCredentials(body.email, body.password)
     .then(user => {
       return user.createToken()
-        .then(token => res.header('x-auth', token).json(user))
+        .then(token => res.header('x-auth', token).json(user));
     })
-    .catch(e => res.status(400).json({ 'noUser': 'No user was found' }));
+    .catch(e => res.status(400).json({ 'noUser': 'Wrong user or wrong password!' }));
 });
 
 // @ROUTE   /api/users/logout
