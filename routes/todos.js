@@ -13,6 +13,12 @@ const { Todo } = require('../models/Todo');
 router.post('/', authenticate, (req, res) => {
   const body = _.pick(req.body, ['text', 'completed', 'deadline', 'completedAt']);
 
+  console.log(body);
+  if(!body.text) {
+    return res.status(400).json({ text: 'Please fill in this field!' });
+  }
+
+
   if(body.completed) {
     body.completedAt = body.completedAt ? body.completedAt : Date.now();
   } else {
