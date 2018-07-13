@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getTodos } from '../../actions/todoActions';
+import { getTodos, setTodos } from '../../actions/todoActions';
 import ReactLoading from 'react-loading';
+import isEmpty from '../../utils/is-empty';
 
 import TodoList from './TodoList';
-import TodoItem from './TodoItem';
 import TodoFilters from './TodoFilters';
 import TodoCreate from './TodoCreate';
+import TodoEdit from './TodoEdit';
 
 class Dashboard extends Component {
   componentDidMount() {
-    this.props.getTodos();
-
+    
     if(!this.props.auth.isAuth) {
       this.props.history.push('/login');
     }
+
+    this.props.getTodos();
   }
 
-  // componentWillReceiveProps(next)
-
   render() {
-    const { todos, loading } = this.props.todo;
-    
+    const { todo, todos, loading } = this.props.todo;
+
     let todoList;
 
     if(loading) {
@@ -29,15 +29,14 @@ class Dashboard extends Component {
     } else if(!loading && todos) {
       todoList = <TodoList todos={todos} />
     } else {
-      todoList = <div>There is no todos at the moment.</div>
+      todoList = <div className="mt-5">There is no tasks at the moment.</div>
     }
 
     return (
       <div className="text-center my-5">
-        
-        <TodoCreate />
+        {isEmpty(todo) ? <TodoCreate /> : <TodoEdit todo={todo} />}
         <div className="my-5">
-          <h1 className="text-dark">Your Todo List</h1>
+          <h1 className="text-dark mb-3">Your Tasks List</h1>
           <TodoFilters />
           {todoList}
         </div>
@@ -48,7 +47,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => ({
   todo: state.todo,
-  auth: state.auth,
+  auth: state.auth
 });
 
-export default connect(mapStateToProps, { getTodos })(Dashboard);
+export default connect(mapStateToProps, { getTodos, setTodos })(Dashboard);

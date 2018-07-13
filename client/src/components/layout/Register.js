@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { registerUser } from '../../actions/authActions';
 
 class Register extends React.Component {
@@ -107,6 +107,7 @@ class Register extends React.Component {
               </div>
 
               <input type="submit" className="btn btn-info btn-block" />
+              <Link className="text-info" to="/login"><small>Already signed up? Login Here</small></Link>
             </form>
 
           </div>

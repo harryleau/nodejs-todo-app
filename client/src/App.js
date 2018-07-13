@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 import setToken from './utils/setToken';
 
+import { getTodos, getTodosByFilters } from './actions/todoActions';
+
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
@@ -20,8 +22,8 @@ if(localStorage.jwt_token) {
     type: 'SET_CURRENT_USER',
     user
   });
-
 }
+
 
 class App extends React.Component {
   render() {
@@ -35,7 +37,7 @@ class App extends React.Component {
               <Switch>
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
-                <Route path="/dashboard" component={Dashboard} />
+                <Route path="/dashboard" component={Dashboard} test="test" />
               </Switch>
             </div>
             <Footer />

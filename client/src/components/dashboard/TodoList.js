@@ -1,29 +1,40 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
+import { connect } from 'react-redux';
+import { getTodosByFilters, getTodos } from '../../actions/todoActions';
 
-export default class TodoList extends Component {
+class TodoList extends Component {
+
   render() {
-    const { todos } = this.props;
+    const { filteredTodos } = this.props;
     
     return (
-      <table className="table table-responsive bg-light table-striped">
-        <thead className="thead-dark">
-          <tr>
-            <th>To do</th>
-            <th>Start Date</th>
-            <th>Deadline</th>
-            <th>Completed</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
+      <div className="table-responsive">
+        <table className="table bg-light mx-auto table-striped table-condensed p-0">
+          <thead className="thead-dark">
+            <tr>
+              <th>Task</th>
+              <th>Start Date</th>
+              <th>Deadline</th>
+              <th>Completed</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
 
-          {todos.map(todo => <TodoItem key={todo._id} todo={todo} />)}
+            {filteredTodos.map(todo => <TodoItem key={todo._id} todo={todo} />)}
 
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     )
   }
 }
+
+const mapStateToProps = (state, props) => ({
+  filteredTodos: getTodosByFilters(props.todos, state.filters)
+});
+
+export default connect(mapStateToProps, { getTodos })(TodoList);
 

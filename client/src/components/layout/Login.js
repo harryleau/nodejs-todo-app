@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
 
@@ -77,6 +77,7 @@ class Login extends React.Component {
               </div>
 
               <input type="submit" className="btn btn-info btn-block" />
+              <Link className="text-info" to="/login"><small>Not a member yet? Register Here</small></Link>
             </form>
 
           </div>

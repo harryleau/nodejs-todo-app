@@ -11,13 +11,22 @@ const { Todo } = require('../models/Todo');
 // @DESC    post a todo
 // @ACCESS  private
 router.post('/', authenticate, (req, res) => {
-  const body = _.pick(req.body, ['text', 'completed', 'deadline', 'completedAt']);
+  const body = _.pick(req.body, ['text', 'completed', 'deadline', 'createdAt']);
 
-  console.log(body);
+  if(!body.text && (body.createdAt > body.deadline && body.deadline !== null)) {
+    return res.status(400).json({ 
+      text: 'Please fill in this field!',
+      deadline: 'Deadline must be after start date!'
+    });
+  }
+
   if(!body.text) {
     return res.status(400).json({ text: 'Please fill in this field!' });
   }
 
+  if(body.createdAt > body.deadline && body.deadline !== null) {
+    return res.status(400).json({ deadline: 'Deadline must be after start date!' });
+  }
 
   if(body.completed) {
     body.completedAt = body.completedAt ? body.completedAt : Date.now();
@@ -69,7 +78,15 @@ router.get('/:id', authenticate, (req, res) => {
 // @DESC    update todo by id
 // @ACCESS  private
 router.put('/:id', authenticate, (req, res) => {
-  const update = _.pick(req.body, ['text', 'completed', 'deadline', 'completedAt']);
+  const update = _.pick(req.body, ['text', 'completed', 'deadline', 'createdAt']);
+
+  if(!update.text) {
+    return res.status(400).json({ text: 'Please fill in this field!' });
+  }
+
+  if(update.createdAt > update.deadline && update.deadline !== null) {
+    return res.status(400).json({ deadline: 'Deadline must be after start date!' });
+  }
   
   if(update.completed) {
     update.completedAt = update.completedAt ? update.completedAt : Date.now();

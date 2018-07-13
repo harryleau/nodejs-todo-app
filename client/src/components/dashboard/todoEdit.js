@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addTodo, getTodos } from '../../actions/todoActions';
+import { editTodo, getTodos, clearTodo } from '../../actions/todoActions';
 import ReactDateTime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import moment from 'moment';
 import classnames from 'classnames';
 
-class TodoCreate extends Component {
+class TodoEdit extends Component {
   state = {
-    text: '',
-    startDate: moment(),
-    deadline: null,
-    date: '',
+    text: this.props.todo.text,
+    startDate: this.props.todo.createdAt,
+    deadline: this.props.todo.deadline,
     errors: {
       startDate: '',
-      text: 'not set',
+      text: '',
       deadline: ''
     }
+  }
+
+  componentDidMount() {
+    document.getElementById('text').focus();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,7 +33,7 @@ class TodoCreate extends Component {
       text: e.target.value,
       errors: {
         ...this.state.errors,
-        text: e.target.value ? '' : this.props.errors.text
+        text: e.target.value ? '' : 'Please fill in this field!'
       }
     });
   };
@@ -67,50 +70,41 @@ class TodoCreate extends Component {
     });
   };
 
-  onSubmit = (e) => {
+  onSave = (e) => {
     e.preventDefault();
 
-    const newTodo = {
+    const editedTodo = {
       text: this.state.text,
       createdAt: this.state.startDate,
-      deadline: this.state.deadline
-    }
-
-    if(this.state.errors.text === 'not set') {
-      this.props.addTodo(newTodo);
+      deadline: this.state.deadline,
+      completed: this.props.todo.completed
     }
 
     if(!this.state.errors.text && !this.state.errors.startDate && !this.state.errors.deadline) {
-      this.props.addTodo(newTodo);
+      this.props.editTodo(this.props.todo._id, editedTodo);
+      this.props.getTodos();
     }
-
-    this.setState({
-      text: '',
-      startDate: moment(),
-      deadline: null,
-      date: '',
-      errors: {
-        startDate: '',
-        text: 'not set',
-        deadline: ''
-      }
-    })
   };
 
+  onCancel = () => {
+    this.props.clearTodo();
+  }
+
   render() { 
-    const { errors } = this.state;
+    const { errors, text, startDate, deadline } = this.state;
 
     return (
-      <form onSubmit={this.onSubmit} className="col-lg-8 col-md-10 mx-auto bg-light p-3">
+      <form onSubmit={this.onSave} className="col-lg-8 col-md-10 mx-auto bg-light p-3">
+        <h3 className="text-dark mb-3">Edit Todo</h3>
         <input 
           type="text"
-          className={classnames("form-control", { "is-invalid": errors.text && errors.text !== 'not set' })}
-          placeholder="Add a task..."
+          className={classnames("form-control", { "is-invalid": errors.text })}
+          value={text}
           name="text"
+          id="text"
           onChange={this.onTextChange}
-          value={this.state.text}
         />
-        {(errors.text && errors.text !== 'not set') && <small className="invalid-feedback">{errors.text}</small>}
+        {errors.text && <small className="invalid-feedback">{errors.text}</small>}
 
         <div className="row my-3">
           <div className="col-sm-6">
@@ -121,7 +115,7 @@ class TodoCreate extends Component {
               timeFormat="H:mm"
               name="startDate"
               id="startDate"
-              value={this.state.startDate}
+              value={moment(startDate).format("DD-MM-YYYY H:mm")}
               onChange={this.onStartDateChange}
             />
             {errors.startDate && <small className="text-danger">{errors.startDate}</small>}
@@ -131,19 +125,21 @@ class TodoCreate extends Component {
           <div className="col-sm-6">
             <label htmlFor="deadline"><strong>Deadline</strong></label>
             <ReactDateTime 
-              inputProps={{ placeholder: 'Not Set (Optional)', className: errors.deadline ? "is-invalid form-control" : "form-control" }}
+              inputProps={{ placeholder: 'Not Set', className: errors.deadline ? "is-invalid form-control" : "form-control" }}
               dateFormat="DD-MM-YYYY"
               timeFormat="H:mm"
               name="deadline"
               id="deadline"
-              value={this.state.deadline}
+              value={moment(deadline).isValid() ? moment(deadline).format("DD-MM-YYYY H:mm") : ''}
               onChange={this.onDeadlineChange}
             />
             {errors.deadline && <small className="text-danger">{errors.deadline}</small>}
           </div>  
         </div>
-          
-        <input type="submit" value="Submit" className="btn btn-info btn-block"/>
+
+        <input type="submit" value="Save" className="btn btn-danger col-sm-5 mx-2"/>
+        <button type="button" onClick={this.onCancel} className="btn btn-secondary col-sm-5 mx-2">Cancel</button>
+
       </form>
     )
   }
@@ -153,4 +149,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { addTodo, getTodos })(TodoCreate);
+export default connect(mapStateToProps, { editTodo, getTodos, clearTodo })(TodoEdit);
