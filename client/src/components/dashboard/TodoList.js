@@ -10,8 +10,8 @@ class TodoList extends Component {
     
     return (
       <div className="table-responsive">
-        <table className="table bg-light mx-auto table-striped table-condensed p-0">
-          <thead className="thead-dark">
+        <table className="table mx-auto table-condensed bg-light p-0 text-dark">
+          <thead className="thead-light">
             <tr>
               <th>Task</th>
               <th>Start Date</th>
@@ -24,7 +24,7 @@ class TodoList extends Component {
           <tbody>
 
             {filteredTodos.map(todo => <TodoItem key={todo._id} todo={todo} />)}
-
+            
           </tbody>
         </table>
       </div>

@@ -33,51 +33,59 @@ class TodoFilters extends Component {
     const { text, startDate, endDate, sortBy, showCompleted } = this.props.filters;
 
     return (
-      <form className="row mx-auto">
+      <form className="mx-auto filters">
+
+      <div className="row mx-auto">
         <input 
           type="text"
-          placeholder="Search for todos..."
-          className="form-control col-md-5 mb-3 mx-auto"
+          placeholder="Search for tasks..."
+          className="form-control col-md-5 mb-3 mx-auto col-sm-11"
           value={text}
           onChange={this.onTextFilter}
         />  
 
-        <ReactDateTime 
-          inputProps={{ placeholder: 'From Date', className: "form-control" }}
-          className="col-md-3 col-sm-6 mb-3 mx-auto"
-          dateFormat="DD-MM-YYYY"
-          timeFormat="H:mm"
-          value={startDate}
-          onChange={this.onStartDateFilter}
-        />
+        <div className="col-md-7 d-flex mb-3 mx-auto">
+          <ReactDateTime 
+            inputProps={{ placeholder: 'From Date', className: "form-control" }}
+            className=""
+            dateFormat="DD-MM-YYYY"
+            timeFormat="H:mm"
+            value={startDate}
+            onChange={this.onStartDateFilter}
+          />
 
-        <ReactDateTime
-          inputProps={{ placeholder: 'To Date', className: "form-control" }}
-          className="col-md-3 col-sm-6 mb-3 mx-auto"
-          dateFormat="DD-MM-YYYY"
-          timeFormat="H:mm"
-          value={endDate}
-          onChange={this.onEndDateFilter}
-        />
-
-        <div className="col-md-4 col-sm-6 mr-auto">
-          <label htmlFor="showCompletedFilter" className="pr-2">Show Completed Todos</label>
-          <input 
-            type="checkbox"
-            id="showCompletedFilter"
-            onChange={this.onCheck}
-            checked={showCompleted}
+          <ReactDateTime
+            inputProps={{ placeholder: 'To Date', className: "form-control" }}
+            className=""
+            dateFormat="DD-MM-YYYY"
+            timeFormat="H:mm"
+            value={endDate}
+            onChange={this.onEndDateFilter}
           />
         </div>
+      </div>
+        
+        <div className="col-md-10 d-flex flex-wrap mx-auto mb-3">
+          <div className="pull-left">
+            <label htmlFor="showCompletedFilter" className="mr-2 text-dark">Show Completed Tasks</label>
+            <input 
+              type="checkbox"
+              id="showCompletedFilter"
+              onChange={this.onCheck}
+              checked={showCompleted}
+              className="ml-2"
+            />
+          </div>
 
-        <select 
-          className="form-control col-md-3 col-sm-4 ml-auto mb-2"
-          onChange={this.onSelectChange}
-          value={sortBy}
-        >
-          <option value="deadline">Sort By Deadline</option>
-          <option value="startDate">Sort By Start Date</option>
-        </select>
+          <select 
+            className="ml-auto"
+            onChange={this.onSelectChange}
+            value={sortBy}
+          >
+            <option value="deadline">Sort By Deadline</option>
+            <option value="startDate">Sort By Start Date</option>
+          </select>
+        </div>
 
       </form>
     );

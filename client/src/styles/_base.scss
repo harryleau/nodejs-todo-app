@@ -1,0 +1,71 @@
+// COLORS
+
+$color-red: rgb(241, 15, 15);
+$color-red-dark: rgba(241, 15, 15, .8);
+
+$teal: #17a2b8;
+
+
+$color-grey: #333;
+$color-grey-dark: rgb(48, 49, 51);
+$color-grey-darker: rgba(0, 0, 0, .9);
+$color-grey-medium: rgb(121, 119, 119);
+$color-grey-light: rgba(230, 222, 222, 0.356);
+
+$color-white: #fff; 
+
+$color-black: #000;
+$color-black-light: rgb(19, 18, 18);
+
+
+// FONT SIZES
+$default-font-size: 1.6rem;
+
+// Animations
+$quick: cubic-bezier(0,.99,.77,.95);
+
+//shadow 
+$shadow-dark: 0 2rem 6rem rgba(0, 0, 0, .7);
+$shadow-dark-2: 0 2rem 6rem rgba(0, 0, 0, 1);
+$shadow-light: 0 2rem 5rem rgba(0, 0, 0, .3);
+
+
+// dark-overlay
+$dark-overlay: rgba(0,0,0,0.6);
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Vollkorn, serif;
+  font-size: $default-font-size;
+  box-sizing: inherit;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+h3 {
+  font-size: 2.6rem;
+}
+
+h6 {
+  font-size: 2.2rem;
+}
+
+p {
+  font-size: 2rem;
+}
+
+// @media only screen and (max-width:999px) {
+//   html {
+//     font-size: 90%;
+//   }
+// }

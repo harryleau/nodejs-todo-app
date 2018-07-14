@@ -50,11 +50,12 @@ export default (state = initialState, action) => {
         ...state,
         todo: {}
       };
-    case 'REMOVE_TODO':
+    case 'REMOVE_TODO': 
       return {
         ...state,
-        todos: state.todos.filter(todo => todo._id !== action.id)
-      }
+        todos: state.todos.filter(todo => todo._id !== action.id),
+        todo: state.todo._id === action.id ? {} : state.todo 
+      };
     case 'SET_LOADING':
       return {
         ...state,

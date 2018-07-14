@@ -40,23 +40,23 @@ class TodoItem extends Component {
         
         <td>
           <button 
-            className="btn btn-dark p-1"
+            className="task-btn"
             onClick={() => {
               this.props.getTodo(todo._id);
             }}
           >
-            Edit
+            <strong className="text-dark">edit</strong>
           </button>
         </td>
         
         <td>
           <button 
-            className="btn btn-danger py-1 px-2"
+            className="task-btn text-danger"
             onClick={() => {
               this.props.removeTodo(todo._id);
             }}
           >
-            X
+          remove
           </button>
         </td>
 

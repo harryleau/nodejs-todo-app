@@ -1,27 +1,37 @@
+@import 'base';
+
 .app {
   min-height: 100vh;
-  background: url('/img/bg1.jpg');
+  background: url('/img/bg.jpg');
   background-size: cover;
   background-attachment: fixed;
-  background-position: 0%;
+  background-position: 30% 70%;
   display: flex;
   flex-direction: column;
 
   .main-content {
     flex-grow: 1;
   }
+
 }
 
 .landing {
   .btn {
-    font-size: 22px;
+    font-size: 2.2rem;
+    box-shadow: $shadow-dark;
   }
 }
 
 .nav-item {
-  button:hover {
-    cursor: pointer;
+  font-size: 2rem;
+
+  .nav-link:focus {
+    outline: none;
   }
+}
+
+.navbar-brand {
+  font-size: 2.5rem;
 }
 
 input[type=checkbox] {
@@ -29,5 +39,45 @@ input[type=checkbox] {
 
   &:focus {
     outline: 0;
+  }
+}
+
+.register, .login, .todo-edit, .todo-create, .filters, td {
+  input, button {
+    font-size: 1.8rem;
+  }
+
+  input {
+    border-radius: 100px;
+  }
+
+  input[type=submit], button {
+    border-radius: 2px;
+  }
+
+  select, label {
+    font-size: 1.6rem;
+  }
+
+  select {
+    height: 2.5rem;
+    border-radius: 100px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.task-btn {
+  background: transparent;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    opacity: .7;
   }
 }

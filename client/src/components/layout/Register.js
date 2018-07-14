@@ -47,7 +47,7 @@ class Register extends React.Component {
     const { errors } = this.state;
 
     return (
-      <div className="pt-5 pb-5 row">
+      <div className="pt-5 pb-5 row register">
         <div className="col-lg-8 mx-auto card bg-light text-center card-form">
           <div className="card-body">
             <h3 className="text-info">Sign Up Today</h3>

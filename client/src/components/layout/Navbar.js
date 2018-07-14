@@ -12,11 +12,11 @@ class Navbar extends Component {
     const { isAuth } = this.props.auth; 
 
     return (
-      <nav className="navbar navbar-expand-sm bg-info navbar-dark">
+      <nav className="navbar navbar-expand-sm bg-white navbar-light p-1">
         <div className="container">
           
           <NavLink to={isAuth ? "/dashboard" : "/"} className="navbar-brand">
-            Tasks Planning App
+            Tasks Planner
           </NavLink>
           <button
             className="navbar-toggler"
@@ -29,12 +29,12 @@ class Navbar extends Component {
             {isAuth ? (
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <NavLink to="/dashboard" className="nav-link text-white" activeclassname="active" exact>
+                  <NavLink to="/dashboard" className="nav-link" activeclassname="active" exact>
                     Home
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <button onClick={this.onClick} className="nav-link text-white" style={{background: "none", border: "none"}}>
+                  <button onClick={this.onClick} className="nav-link" style={{background: "none", border: "none"}}>
                     Logout
                   </button>
                 </li>
@@ -42,17 +42,17 @@ class Navbar extends Component {
             ) : (
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <NavLink to="/" className="nav-link text-white" exact>
+                  <NavLink to="/" className="nav-link" exact>
                     Home
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/register" className="nav-link text-white" >
+                  <NavLink to="/register" className="nav-link" >
                     Sign Up
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink to="/login" className="nav-link text-white">
+                  <NavLink to="/login" className="nav-link">
                     Login
                   </NavLink>
                 </li>

@@ -26,18 +26,19 @@ class Dashboard extends Component {
 
     if(loading) {
       todoList = <ReactLoading className="mx-auto" type="bubbles" color="#333" height={100} width={100} />
-    } else if(!loading && todos) {
+    } else if(!loading && !isEmpty(todos)) {
       todoList = <TodoList todos={todos} />
     } else {
-      todoList = <div className="mt-5">There is no tasks at the moment.</div>
+      todoList = <div className="mt-5"><h6>There is no tasks at the moment.</h6></div>
     }
 
     return (
       <div className="text-center my-5">
         {isEmpty(todo) ? <TodoCreate /> : <TodoEdit todo={todo} />}
-        <div className="my-5">
+        <div className="my-5 table-container">
           <h1 className="text-dark mb-3">Your Tasks List</h1>
-          <TodoFilters />
+          <hr/>
+          {!isEmpty(todos) && <TodoFilters />}
           {todoList}
         </div>
       </div>

@@ -101,11 +101,13 @@ class TodoCreate extends Component {
     const { errors } = this.state;
 
     return (
-      <form onSubmit={this.onSubmit} className="col-lg-8 col-md-10 mx-auto bg-light p-3">
+      <form onSubmit={this.onSubmit} className="col-lg-8 col-md-10 mx-auto bg-light p-3 todo-create">
+        <h3 className="text-info mb-3">Create A Task</h3>
+        <hr/>
         <input 
           type="text"
           className={classnames("form-control", { "is-invalid": errors.text && errors.text !== 'not set' })}
-          placeholder="Add a task..."
+          placeholder="Write your task here..."
           name="text"
           onChange={this.onTextChange}
           value={this.state.text}

@@ -94,8 +94,9 @@ class TodoEdit extends Component {
     const { errors, text, startDate, deadline } = this.state;
 
     return (
-      <form onSubmit={this.onSave} className="col-lg-8 col-md-10 mx-auto bg-light p-3">
-        <h3 className="text-dark mb-3">Edit Todo</h3>
+      <form onSubmit={this.onSave} className="col-lg-8 col-md-10 mx-auto bg-light p-3 todo-edit">
+        <h3 className="text-danger mb-3">Edit Task</h3>
+        <hr/>
         <input 
           type="text"
           className={classnames("form-control", { "is-invalid": errors.text })}
@@ -137,8 +138,8 @@ class TodoEdit extends Component {
           </div>  
         </div>
 
-        <input type="submit" value="Save" className="btn btn-danger col-sm-5 mx-2"/>
-        <button type="button" onClick={this.onCancel} className="btn btn-secondary col-sm-5 mx-2">Cancel</button>
+        <input type="submit" value="Save" className="btn btn-danger col-sm-6"/>
+        <button type="button" onClick={this.onCancel} className="btn btn-dark col-sm-6">Cancel</button>
 
       </form>
     )
