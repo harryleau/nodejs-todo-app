@@ -1,20 +1,20 @@
 import React, { Component } from "react";
-import { NavLink, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { logoutUser } from '../../actions/authActions';
+import { NavLink, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
 
 class Navbar extends Component {
-  onClick = (e) => {
+  onClick = e => {
     this.props.logoutUser(this.props.history);
-  }
-  
+  };
+
   render() {
-    const { isAuth } = this.props.auth; 
+    const { isAuth } = this.props.auth;
+    console.log(this.props.location.pathname === "/");
 
     return (
-      <nav className="navbar navbar-expand-sm bg-white navbar-light p-1">
+      <nav className="navbar navbar-expand-sm bg-none navbar-dark p-1">
         <div className="container">
-          
           <NavLink to={isAuth ? "/dashboard" : "/"} className="navbar-brand">
             Tasks Planner
           </NavLink>
@@ -29,12 +29,11 @@ class Navbar extends Component {
             {isAuth ? (
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <NavLink to="/dashboard" className="nav-link" activeclassname="active" exact>
-                    Home
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <button onClick={this.onClick} className="nav-link" style={{background: "none", border: "none"}}>
+                  <button
+                    onClick={this.onClick}
+                    className="nav-link text-gold"
+                    style={{ background: "none", border: "none" }}
+                  >
                     Logout
                   </button>
                 </li>
@@ -42,20 +41,16 @@ class Navbar extends Component {
             ) : (
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <NavLink to="/" className="nav-link" exact>
+                  <NavLink to="/" className="nav-link text-white" exact>
                     Home
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink to="/register" className="nav-link" >
+                <li className="nav-item btn btn-gold" style={{ padding: 0 }}>
+                  <NavLink to="/register" className="nav-link text-dark">
                     Sign Up
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink to="/login" className="nav-link">
-                    Login
-                  </NavLink>
-                </li>
+                )}
               </ul>
             )}
           </div>
@@ -69,4 +64,7 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(withRouter(Navbar));

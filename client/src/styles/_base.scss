@@ -1,37 +1,35 @@
 // COLORS
 
 $color-red: rgb(241, 15, 15);
-$color-red-dark: rgba(241, 15, 15, .8);
+$color-red-dark: rgba(241, 15, 15, 0.8);
 
 $teal: #17a2b8;
-
+$gold: #fce181;
 
 $color-grey: #333;
 $color-grey-dark: rgb(48, 49, 51);
-$color-grey-darker: rgba(0, 0, 0, .9);
+$color-grey-darker: rgba(0, 0, 0, 0.9);
 $color-grey-medium: rgb(121, 119, 119);
 $color-grey-light: rgba(230, 222, 222, 0.356);
 
-$color-white: #fff; 
+$color-white: #fff;
 
 $color-black: #000;
 $color-black-light: rgb(19, 18, 18);
-
 
 // FONT SIZES
 $default-font-size: 1.6rem;
 
 // Animations
-$quick: cubic-bezier(0,.99,.77,.95);
+$quick: cubic-bezier(0, 0.99, 0.77, 0.95);
 
-//shadow 
-$shadow-dark: 0 2rem 6rem rgba(0, 0, 0, .7);
+//shadow
+$shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.7);
 $shadow-dark-2: 0 2rem 6rem rgba(0, 0, 0, 1);
-$shadow-light: 0 2rem 5rem rgba(0, 0, 0, .3);
-
+$shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.3);
 
 // dark-overlay
-$dark-overlay: rgba(0,0,0,0.6);
+$dark-overlay: rgba(0, 0, 0, 0.6);
 
 html {
   font-size: 62.5%;
@@ -69,3 +67,30 @@ p {
 //     font-size: 90%;
 //   }
 // }
+
+.heading-1 {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.text-gold {
+  color: $gold !important;
+
+  &:hover,
+  &:visited {
+    color: $gold;
+  }
+}
+
+.bg-gold {
+  background-color: $gold;
+}
+
+.btn-gold {
+  background-color: $gold;
+
+  &:hover,
+  &:visited {
+    opacity: 0.9;
+  }
+}

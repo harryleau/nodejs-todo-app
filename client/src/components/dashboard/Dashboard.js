@@ -1,19 +1,18 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getTodos, setTodos } from '../../actions/todoActions';
-import ReactLoading from 'react-loading';
-import isEmpty from '../../utils/is-empty';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { getTodos, setTodos } from "../../actions/todoActions";
+import ReactLoading from "react-loading";
+import isEmpty from "../../utils/is-empty";
 
-import TodoList from './TodoList';
-import TodoFilters from './TodoFilters';
-import TodoCreate from './TodoCreate';
-import TodoEdit from './TodoEdit';
+import TodoList from "./TodoList";
+import TodoFilters from "./TodoFilters";
+import TodoCreate from "./TodoCreate";
+import TodoEdit from "./TodoEdit";
 
 class Dashboard extends Component {
   componentDidMount() {
-    
-    if(!this.props.auth.isAuth) {
-      this.props.history.push('/login');
+    if (!this.props.auth.isAuth) {
+      this.props.history.push("/login");
     }
 
     this.props.getTodos();
@@ -24,25 +23,37 @@ class Dashboard extends Component {
 
     let todoList;
 
-    if(loading) {
-      todoList = <ReactLoading className="mx-auto" type="bubbles" color="#333" height={100} width={100} />
-    } else if(!loading && !isEmpty(todos)) {
-      todoList = <TodoList todos={todos} />
+    if (loading) {
+      todoList = (
+        <ReactLoading
+          className="mx-auto"
+          type="bubbles"
+          color="#333"
+          height={100}
+          width={100}
+        />
+      );
+    } else if (!loading && !isEmpty(todos)) {
+      todoList = <TodoList todos={todos} />;
     } else {
-      todoList = <div className="mt-5"><h6>There is no tasks at the moment.</h6></div>
+      todoList = (
+        <div className="mt-5">
+          <h6>There is no tasks at the moment.</h6>
+        </div>
+      );
     }
 
     return (
       <div className="text-center my-5">
         {isEmpty(todo) ? <TodoCreate /> : <TodoEdit todo={todo} />}
-        <div className="my-5 table-container">
-          <h1 className="text-dark mb-3">Your Tasks List</h1>
-          <hr/>
+        <div className="my-5 table-container todo-table p-4">
+          <h1 className="text-white mb-3">Your Tasks List</h1>
+          <hr />
           {!isEmpty(todos) && <TodoFilters />}
           {todoList}
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -51,4 +62,7 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getTodos, setTodos })(Dashboard);
+export default connect(
+  mapStateToProps,
+  { getTodos, setTodos }
+)(Dashboard);
